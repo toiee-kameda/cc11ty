@@ -62,6 +62,12 @@ About / Services / Contact などの固定ページを `src/[ページ名].njk` 
 Unsplash からサイトに使う画像を検索・最適化する。  
 `one-page-site-builder` から自動呼び出しされることが多い。
 
+### `publish-blog`
+`blog-draft/` に置いた下書き記事（`post.md`）と画像を `src/posts/` と `src/assets/` へ移動して公開する。  
+frontmatter の設定・スラッグの決定・画像パスの絶対パス変換を自動化する。
+
+**起動タイミング:** 「ブログ公開」「記事を公開」「下書きを公開」など
+
 ## ファイル保存規則
 
 | 種類 | 保存先 |
