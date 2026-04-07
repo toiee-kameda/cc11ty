@@ -119,6 +119,7 @@ tmp/
 .local
 .cache/
 .temp/
+_site/
 
 # Claude Code specific files (optional)
 .claude/settings.local.json

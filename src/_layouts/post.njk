@@ -1,0 +1,8 @@
+---
+layout: base.njk
+---
+<article>
+  <h1>{{ title }}</h1>
+  {% if page.date %}<time datetime="{{ page.date.toISOString() }}">{{ page.date.toISOString().slice(0, 10) }}</time>{% endif %}
+  {{ content | safe }}
+</article>
