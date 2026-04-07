@@ -120,6 +120,7 @@ tmp/
 .cache/
 .temp/
 _site/
+blog-draft/
 
 # Claude Code specific files (optional)
 .claude/settings.local.json
