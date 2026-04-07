@@ -22,6 +22,7 @@ description: Convert an approved one-page HTML prototype from the project-docs/ 
 ## 生成物
 
 - `src/_layouts/base.njk`（上書き）
+- `src/index.njk`（テーマ初回設定時は上書き推奨）
 
 ## 前提条件チェック
 
@@ -42,8 +43,57 @@ description: Convert an approved one-page HTML prototype from the project-docs/ 
 3. HTML 構造を解析し、変換対象のセクションを特定する（詳細は [references/conversion-guide.md](references/conversion-guide.md) を参照）
 4. ベースレイアウトとして保持するもの・除去するもの・Nunjucks 変数に置き換えるものを判断する
 5. `src/_layouts/base.njk` を生成する
-6. 変換結果のサマリーをユーザーに報告する（何を保持し、何を除いたか）
-7. `npm start` で確認するよう案内する
+6. **`src/index.njk` も更新する**（詳細は「index.njk の更新」参照）
+7. 変換結果のサマリーをユーザーに報告する（何を保持し、何を除いたか）
+8. `npm start` で確認するよう案内する
+
+## index.njk の更新
+
+`base.njk` 生成後、**必ず `src/index.njk` もテンプレートの全コンテンツで上書きする**。
+理由：テーマ初回設定時はトップページがプロトタイプと同じ見た目になることがゴールであるため。
+
+### index.njk に含めるもの
+
+- フロントマター（`layout: base.njk`、`title`、`description`）
+- `base.njk` から削除したコンテンツ固有の CSS を `<style>` ブロックとして先頭に追加
+  - `.hero-overlay` などの Hero 固有スタイル
+  - `.product-card:hover` などのコンテンツ固有スタイル
+  - `.step-line::after` などのセクション固有スタイル
+- Hero セクション〜最後のセクション（フッター直前まで）の全コンテンツ
+
+### Hero セクションと fixed nav の重なりを確保する
+
+`<main class="pt-16 lg:pt-20">` のパディングでヒーローが押し下がるため、**Hero セクションには必ず `-mt-16 lg:-mt-20` を追加**してパディングを打ち消す：
+
+```html
+<section id="hero" class="relative min-h-screen ... -mt-16 lg:-mt-20">
+```
+
+これにより fixed nav がヒーロー画像に重なり、プロトタイプと同じ見た目になる。
+
+### index.njk のテンプレート
+
+```nunjucks
+---
+layout: base.njk
+title: ページタイトル
+description: ページの説明
+---
+
+<style>
+  /* base.njk から削除したコンテンツ固有の CSS をここに移す */
+  .hero-overlay { ... }
+  .product-card:hover .product-img { ... }
+  /* ...etc... */
+</style>
+
+<!-- Hero セクション：-mt-16 lg:-mt-20 で nav との重なりを確保 -->
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden -mt-16 lg:-mt-20">
+  ...
+</section>
+
+<!-- 以降のセクションをそのまま配置 -->
+```
 
 ## 変換ルール（概要）
 

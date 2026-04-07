@@ -22,6 +22,8 @@
 - お問い合わせフォームセクション
 - コンテンツ固有の CSS ルール（後述）
 
+> ⚠️ **重要**: `base.njk` から削除したコンテンツ固有の CSS（`.hero-overlay` など）は、`src/index.njk` に `<style>` ブロックとして移す。削除しっぱなしにしない。
+
 **挿入するもの**
 - `<main class="pt-16 lg:pt-20">{{ content | safe }}</main>`（nav と footer の間）
 
@@ -112,5 +114,8 @@ Fixed nav（`position: fixed`）を使っている場合、コンテンツが na
 - [ ] `{{ title or "..." }}` が `<title>` に存在する
 - [ ] `<html lang="{{ lang or 'ja' }}">` になっている
 - [ ] `<main>` に適切な上パディングが設定されている
+- [ ] `src/index.njk` にプロトタイプの全コンテンツが配置されている
+- [ ] `base.njk` から削除したコンテンツ固有 CSS が `index.njk` の `<style>` に移されている
+- [ ] Hero セクションに `-mt-16 lg:-mt-20`（nav 高さ分の負マージン）が付いており、fixed nav と重なっている
 - [ ] ナビリンクがアンカーリンクのままであることをユーザーへ案内済み
 - [ ] `npm start` で確認するよう案内済み
